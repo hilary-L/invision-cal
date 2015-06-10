@@ -1,0 +1,71 @@
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+#app {
+  border: 1px solid #000;
+  width: 875px;
+  height: auto;
+  box-sizing: border-box;
+  font-family: "Muli", sans-serif;
+}
+#app .month-header {
+  text-align: center;
+  border-bottom: 1px solid white;
+  color: white;
+  background-color: #BA77FF;
+  padding: 0.5rem;
+}
+#app .month-header h2 {
+  margin: 0;
+}
+#app #days-header {
+  border-bottom: 1px solid black;
+}
+#app #days-header ul {
+  padding: 0;
+  margin: 0;
+  width: auto;
+}
+#app #days-header ul li {
+  padding: 0.5rem 0;
+  display: inline-block;
+  width: 14.28%;
+  height: auto;
+  text-align: center;
+  border-right: 1px solid #000;
+  box-sizing: border-box;
+  font-size: 14px;
+  color: #1D1D26;
+}
+#app #days-header ul li:last-child {
+  border-right: none;
+}
+#app h3 {
+  text-align: right;
+}
+#app .week-container {
+  height: 100px;
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 0.5rem;
+}
+#app .day {
+  height: 150px;
+  width: 14.28%;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0.25rem 0.25rem;
+}
+#app .day span {
+  display: inline-block;
+  width: 2.0rem;
+  height: 1.5rem;
+  padding-top: 0.5rem;
+  text-align: center;
+  color: #1D1D26;
+  background-color: #F4F4F4;
+  border-radius: 50%;
+  font-size: 0.75rem;
+}
