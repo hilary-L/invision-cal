@@ -1,5 +1,5 @@
 {
-  "name": "react-test",
+  "name": "invision-cal",
   "version": "1.0.0",
   "description": "",
   "main": "gulpfile.js",
@@ -22,8 +22,11 @@
     "watchify": "^3.2.2"
   },
   "dependencies": {
+    "cldr": "^3.0.0",
     "events": "^1.0.2",
     "flux": "^2.0.3",
+    "moment": "^2.10.3",
+    "node-calendar": "^0.1.4",
     "react": "^0.13.3"
   }
 }

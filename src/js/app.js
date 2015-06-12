@@ -1,12 +1,12 @@
 var React = require('react');
-var Calendar = require('./components/Calendar');
+var Cal = require('./components/Cal');
 
 var App = React.createClass({
 	render: function() {
 		return (
 			<div className="container">
 				<div className="row">
-					<Calendar />
+					<Cal />
 				</div>
 			</div>
 		)

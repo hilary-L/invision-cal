@@ -6,27 +6,16 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = 'change';
 
 var _store = {
-	weeks: [
-		{
-			days: [1, 2, 3, 4, 5, 6, 7]
-		},
-		{
-			days: [8, 9, 10, 11, 12, 13, 14]
-		},
-		{
-			days: [15, 16, 17, 18, 19, 20, 21]
-		},
-		{
-			days: [22, 23, 24, 25, 26, 27, 28]
-		},
-		{
-			days: [29, 30, 31]
-		}
-	],
 	month: {
 		num: 6,
 		name: 'June'
-	}
+	},
+	year: 2015
+};
+
+var updateMonth = function(month) {
+	_store.month.num = month.num;
+	_store.month.name = month.name;
 };
 
 var calendarStore = objectAssign({}, EventEmitter.prototype, {
@@ -36,17 +25,21 @@ var calendarStore = objectAssign({}, EventEmitter.prototype, {
 	removeChangeListener: function(cb) {
 		this.removeListender(CHANGE_EVENT, cb);
 	},
-	getWeeks: function() {
-		return _store.weeks;
-	},
 	getMonth: function() {
 		return _store.month;
+	},
+	getYear: function() {
+		return _store.year;
 	}
 });
 
 AppDispatcher.register(function(payload){
 	var action = payload.action;
 	switch(action.actionType){
+		case appConstants.UPDATE_MONTH:
+			updateMonth(action.data);
+			calendarStore.emit(CHANGE_EVENT);
+			break;
 		default:
 			return true;
 	}

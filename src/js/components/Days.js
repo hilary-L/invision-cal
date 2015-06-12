@@ -10,7 +10,7 @@ var Days = React.createClass({
 			<div>
 				{days}
 			</div>
-		);
+		)
 	}
 });
 
