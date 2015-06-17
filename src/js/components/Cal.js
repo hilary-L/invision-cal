@@ -1,25 +1,34 @@
 var React = require('react');
 var moment = require('moment');
 var Month = require('./Month');
+var TaskList = require('./TaskList');
 var calendarStore = require('../stores/calendarStore');
 var calendarActions = require('../actions/calendarActions');
 
 var Cal = React.createClass({
 	getInitialState: function() {
-		return {
-			month: calendarStore.getMonth(),
-			year: calendarStore.getYear()
-		}
+		return ({
+			moment: calendarStore.getMoment(),
+			selectedDay: calendarStore.getSelected()
+		})
 	},
 	componentWillMount: function() {
 
-		var nowMonth = {};
+		var nowMoment = {};
 
-		nowMonth.num = moment().month() + 1;
-		nowMonth.name = moment().format('MMMM');
+		nowMoment.moment = moment();
+		nowMoment.num = moment().month() + 1;
+		nowMoment.name = moment().format('MMMM');
+		nowMoment.year = moment().format('YYYY');
 
 		this.setState({
-			month: nowMonth
+			moment: nowMoment,
+			selectedDay: {
+				index: moment().date(),
+				num: moment().date(),
+				tasks: [],
+				occasions: []
+			}
 		})
 
 	},
@@ -28,13 +37,15 @@ var Cal = React.createClass({
 	},
 	_onChange: function() {
 		this.setState({
-			month: calendarStore.getMonth()
+			moment: calendarStore.getMoment(),
+			selectedDay: calendarStore.getSelected()
 		})
 	},
 	render: function() {
 		return (
 			<div>
-				<Month month={this.state.month} year={this.state.year} />
+				<Month moment={this.state.moment} selectedDay={this.state.selectedDay} />
+				<TaskList month={this.state.moment.name} selectedDay={this.state.selectedDay}/>
 			</div>
 		)
 	}
