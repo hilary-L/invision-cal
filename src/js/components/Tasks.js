@@ -7,7 +7,7 @@ var Tasks = React.createClass({
 					classes += ' help';
 				}
 				return (
-					<h3 className={classes}>{task.task}</h3>
+					<h3 className={classes}>{task.taskName}</h3>
 				)
 			});
 

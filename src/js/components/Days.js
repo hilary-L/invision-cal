@@ -12,7 +12,11 @@ var Days = React.createClass({
 			var classes="day";
 			var tasks = day.tasks;
 
-			if (self.props.selectedDay.index == index) {
+			if(self.props.moment.todayYear == day.year && self.props.moment.todayMonth == day.monthName && self.props.moment.today == day.num) {
+				classes += ' today';
+			}
+
+			if (self.props.selectedDay.year == day.year && self.props.selectedDay.monthName == day.monthName && self.props.selectedDay.num == day.num) {
 				classes += ' selected';
 			}
 			if ((index + 1) % 7 == 0) {

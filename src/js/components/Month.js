@@ -1,9 +1,15 @@
 var React = require('react');
 var moment = require('moment-holidays');
 var Days = require('./Days');
+var TaskList = require('./TaskList');
+var TaskSearch = require('./TaskSearch');
 var Calendar = require('node-calendar');
+var calendarActions = require('../actions/calendarActions');
 
 var Month = React.createClass({
+	handleUpdateMonth: function(update) {
+		calendarActions.updateMonth(update);
+	},
 	render: function() {
 
 		var calendar = new Calendar.Calendar(Calendar.SUNDAY);
@@ -11,6 +17,9 @@ var Month = React.createClass({
 		var days = calendar.itermonthdates(this.props.moment.year, this.props.moment.num).map(function(item) {
 			return(
 				{
+				year: moment(item).year(),
+				monthNum: moment(item).month() + 1,
+				monthName: moment(item).format('MMMM'),
 				num: moment(item).format('D'),
 				holiday: moment(item).holiday(),
 				
@@ -21,12 +30,15 @@ var Month = React.createClass({
 		var tasks = days.map(function(day, index) {
 			if (index % 2 == 0) {
 				return( {
+					year: day.year,
+					monthNum: day.monthNum,
+					monthName: day.monthName,
 					num: day.num,
 					holiday: day.holiday,
 					occasions: [],
 					tasks: [
 						{
-							task: 'Ride to hockey',
+							taskName: 'Ride to hockey',
 							help: false
 						}
 					]
@@ -34,21 +46,24 @@ var Month = React.createClass({
 			}
 			else if (index % 3 == 0 ) {
 				return( {
+					year: day.year,
+					monthNum: day.monthNum,
+					monthName: day.monthName,
 					num: day.num,
 					holiday: day.holiday,
 					occasions: [
 						{
-							occasion: 'Birthday'
+							occasionName: 'Birthday'
 						}
 					],
 					tasks: [
 						{
-							task: 'Walk the dogs',
+							taskName: 'Walk the dogs',
 							help: false
 
 						},
 						{
-							task: 'Dinner for tonight',
+							taskName: 'Dinner for tonight',
 							help: true
 						}
 					]
@@ -57,16 +72,19 @@ var Month = React.createClass({
 			}
 			else {
 				return ( {
+					year: day.year,
+					monthNum: day.monthNum,
+					monthName: day.monthName,
 					num: day.num,
 					holiday: day.holiday,
 					occasions: [],
 					tasks: [
 						{
-							task: 'Doctor appt',
+							taskName: 'Doctor appt',
 							help: false
 						},
 						{
-							task: 'Shovel snow',
+							taskName: 'Shovel snow',
 							help: true
 						}
 					]
@@ -77,22 +95,30 @@ var Month = React.createClass({
 		});
 
 		return (
-			<div className="month">
-				<div className="month-header">
-					<span className="left">&#171;</span><h2>{this.props.moment.name} &#183; {this.props.moment.year}</h2><span className="right">&#187;</span>
+			<div>
+				<div className="month">
+					<div className="month-header">
+						<span className="left" onClick={this.handleUpdateMonth.bind(null, -1)}>&#171;</span><h2>{this.props.moment.name} &#183; {this.props.moment.year}</h2><span className="right" onClick={this.handleUpdateMonth.bind(null, 1)}>&#187;</span>
+					</div>
+					<div id="days-header">
+							<ul>
+								<li>Sunday</li>
+								<li>Monday</li>
+								<li>Tuesday</li>
+								<li>Wednesday</li>
+								<li>Thursday</li>
+								<li>Friday</li>
+								<li>Saturday</li>
+							</ul>
+					</div>
+					<Days moment={this.props.moment} days={tasks} selectedDay={this.props.selectedDay} />
 				</div>
-				<div id="days-header">
-						<ul>
-							<li>Sunday</li>
-							<li>Monday</li>
-							<li>Tuesday</li>
-							<li>Wednesday</li>
-							<li>Thursday</li>
-							<li>Friday</li>
-							<li>Saturday</li>
-						</ul>
+				<div className="task-list">
+					<TaskList moment={this.props.moment} days={tasks} selectedDay={this.props.selectedDay}/>
 				</div>
-				<Days days={tasks} selectedDay={this.props.selectedDay} />
+				<div className="task-search">
+					<TaskSearch search={this.props.search} days={tasks}/>
+				</div>
 			</div>
 		)
 	}

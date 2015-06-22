@@ -3,7 +3,7 @@ var Occasions = React.createClass({
 		if (this.props.occasions.length > 0) {
 			var occasions = this.props.occasions.map(function(occasion){
 				return (
-					<h3 className="occasion">{occasion.occasion}</h3>
+					<h3 className="occasion">{occasion.occasionName}</h3>
 				)
 			});
 		}
